@@ -1,0 +1,4 @@
+- context:
+    cluster: kubernetes
+    user: martin
+  name: developer

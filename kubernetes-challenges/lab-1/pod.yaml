@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: jekyll
+  name: jekyll
+  namespace: development
+spec:
+  containers:
+  - image: kodekloud/jekyll-serve
+    name: jekyll
+    volumeMounts:
+    - mountPath: /site
+      name: site
+  initContainers:
+  - name: copy-jekyll-site
+    image: kodekloud/jekyll
+    command: ['sh', '-c',  "jekyll", "new", "/site"]
+    volumeMounts:
+    - mountPath: /site
+      name: site
+  volumes:
+  - name: site
+    persistentVolumeClaim:
+      claimName: jekyll-site
